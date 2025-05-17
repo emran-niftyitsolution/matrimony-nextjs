@@ -1,41 +1,31 @@
 "use client";
 
-import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
-import { useCallback, useState } from "react";
+import ProfileHeader from "@/components/sections/profile/header";
+import RatingModal from "@/components/sections/profile/header/rating-modal";
+import {
+  About,
+  Family,
+  Interests,
+  Photos,
+  Pledges,
+} from "@/components/sections/profile/main";
+import { useState } from "react";
 import {
   FaBriefcase,
   FaCalendarAlt,
-  FaChartLine,
-  FaChevronLeft,
-  FaChevronRight,
-  FaComments,
   FaEnvelope,
-  FaExpand,
   FaFacebook,
   FaGlobe,
-  FaGlobeAmericas,
   FaGraduationCap,
-  FaHandshake,
-  FaHeart,
-  FaHome,
   FaInstagram,
   FaLanguage,
   FaLinkedin,
-  FaMapMarkerAlt,
   FaPalette,
   FaPhone,
   FaPrayingHands,
-  FaRegHeart,
-  FaRegStar,
   FaRulerVertical,
-  FaSeedling,
-  FaStar,
   FaTint,
-  FaUserCircle,
   FaUserFriends,
-  FaUsers,
-  FaUserTie,
   FaWeight,
 } from "react-icons/fa";
 
@@ -286,679 +276,46 @@ const profileData = {
   ],
 };
 
-export default function ProfilePage({ params }: { params: { id: string } }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [modalEmblaRef, modalEmblaApi] = useEmblaCarousel({ loop: true });
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+export default function ProfilePage() {
   const [isLiked, setIsLiked] = useState(false);
   const [userRating, setUserRating] = useState(0);
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const modalScrollPrev = useCallback(() => {
-    if (modalEmblaApi) modalEmblaApi.scrollPrev();
-  }, [modalEmblaApi]);
-
-  const modalScrollNext = useCallback(() => {
-    if (modalEmblaApi) modalEmblaApi.scrollNext();
-  }, [modalEmblaApi]);
-
-  const openModal = (index: number) => {
-    setSelectedPhotoIndex(index);
-    setIsModalOpen(true);
-    if (modalEmblaApi) {
-      modalEmblaApi.scrollTo(index);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
-      {/* Profile Header */}
-      <div className="relative h-[60vh] bg-gradient-to-r from-pink-500 to-purple-500">
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="container mx-auto px-4 h-full flex items-end pb-20 relative z-10">
-          <div className="flex items-end gap-8 w-full">
-            <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl">
-              <Image
-                src={profileData.photos[0]}
-                alt={profileData.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="text-white mb-4 flex-grow">
-              <div className="flex items-center justify-between">
-                <h1 className="text-4xl font-bold mb-2">
-                  {profileData.name}, {profileData.age}
-                </h1>
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={() => setIsRatingModalOpen(true)}
-                    className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-all duration-300"
-                  >
-                    <FaStar className="w-5 h-5 text-yellow-400" />
-                    <span>Rate</span>
-                  </button>
-                  <button
-                    onClick={() => setIsLiked(!isLiked)}
-                    className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-all duration-300"
-                  >
-                    {isLiked ? (
-                      <FaHeart className="w-5 h-5 text-red-500" />
-                    ) : (
-                      <FaRegHeart className="w-5 h-5" />
-                    )}
-                    <span>{isLiked ? "Liked" : "Like"}</span>
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 text-lg">
-                <div className="flex items-center gap-2">
-                  <FaMapMarkerAlt className="w-5 h-5" />
-                  <span>{profileData.location}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaStar className="w-5 h-5 text-yellow-400" />
-                  <span>{profileData.rating}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaHeart className="w-5 h-5" />
-                  <span>{profileData.likes} likes</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ProfileHeader
+        name={profileData.name}
+        age={profileData.age}
+        location={profileData.location}
+        rating={profileData.rating}
+        likes={profileData.likes}
+        photo={profileData.photos[0]}
+        onRatingClick={() => setIsRatingModalOpen(true)}
+        onLikeClick={() => setIsLiked(!isLiked)}
+        isLiked={isLiked}
+      />
 
-      {/* Rating Modal */}
-      {isRatingModalOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Rate Profile
-            </h3>
-            <div className="flex justify-center gap-2 mb-6">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  onClick={() => setUserRating(star)}
-                  className="text-3xl transition-transform hover:scale-110"
-                >
-                  {star <= userRating ? (
-                    <FaStar className="text-yellow-400" />
-                  ) : (
-                    <FaRegStar className="text-gray-300" />
-                  )}
-                </button>
-              ))}
-            </div>
-            <div className="flex justify-end gap-4">
-              <button
-                onClick={() => setIsRatingModalOpen(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  // Handle rating submission
-                  setIsRatingModalOpen(false);
-                }}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
-              >
-                Submit Rating
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <RatingModal
+        isOpen={isRatingModalOpen}
+        onClose={() => setIsRatingModalOpen(false)}
+        userRating={userRating}
+        onRatingChange={setUserRating}
+        onSubmit={() => {
+          // Handle rating submission
+          setIsRatingModalOpen(false);
+        }}
+      />
 
       {/* Profile Content */}
       <div className="container mx-auto px-4 pb-20 -mt-10 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* About Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                About Me
-              </h2>
-              <p className="text-gray-700 leading-relaxed">
-                {profileData.about}
-              </p>
-            </div>
-
-            {/* Photos Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Photos</h2>
-              <div className="relative">
-                <div className="overflow-hidden" ref={emblaRef}>
-                  <div className="flex">
-                    {profileData.photos.map((photo, index) => (
-                      <div
-                        key={index}
-                        className="flex-[0_0_33.33%] min-w-0 pl-4 first:pl-0"
-                      >
-                        <div className="aspect-square relative rounded-xl overflow-hidden group">
-                          <Image
-                            src={photo}
-                            alt={`${profileData.name}'s photo ${index + 1}`}
-                            fill
-                            className="object-cover transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <button
-                              onClick={() => openModal(index)}
-                              className="bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-                            >
-                              <FaExpand className="w-4 h-4" />
-                              <span>View</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={scrollPrev}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <FaChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={scrollNext}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <FaChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Family Information Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Family Information
-              </h2>
-
-              {/* Parents Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {/* Father's Info */}
-                <div className="bg-pink-50/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <FaUserTie className="w-6 h-6 text-pink-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Father&apos;s Information
-                    </h3>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">Name:</span>{" "}
-                      {profileData.family.father.name}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">
-                        Occupation:
-                      </span>{" "}
-                      {profileData.family.father.occupation}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">
-                        Company:
-                      </span>{" "}
-                      {profileData.family.father.company}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">
-                        Education:
-                      </span>{" "}
-                      {profileData.family.father.education}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Mother's Info */}
-                <div className="bg-purple-50/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <FaUserCircle className="w-6 h-6 text-purple-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Mother&apos;s Information
-                    </h3>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">Name:</span>{" "}
-                      {profileData.family.mother.name}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">
-                        Occupation:
-                      </span>{" "}
-                      {profileData.family.mother.occupation}
-                    </p>
-                    <p className="text-gray-700">
-                      <span className="font-semibold text-gray-900">
-                        Education:
-                      </span>{" "}
-                      {profileData.family.mother.education}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Siblings Information */}
-              <div className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <FaUsers className="w-6 h-6 text-pink-600" />
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    Siblings
-                  </h3>
-                </div>
-
-                {/* Brothers Section */}
-                <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                    Brothers
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {profileData.family.brothers.map((brother, index) => (
-                      <div
-                        key={index}
-                        className="bg-blue-50/50 border border-blue-100 rounded-xl p-4 hover:shadow-lg transition-all duration-300"
-                      >
-                        <p className="font-semibold text-gray-900 text-lg mb-1">
-                          {brother.name}, {brother.age}
-                        </p>
-                        <p className="text-gray-700">{brother.occupation}</p>
-                        <p className="text-gray-500 text-sm mt-1">
-                          {brother.maritalStatus}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Sisters Section */}
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                    Sisters
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {profileData.family.sisters.map((sister, index) => (
-                      <div
-                        key={index}
-                        className="bg-pink-50/50 border border-pink-100 rounded-xl p-4 hover:shadow-lg transition-all duration-300"
-                      >
-                        <p className="font-semibold text-gray-900 text-lg mb-1">
-                          {sister.name}, {sister.age}
-                        </p>
-                        <p className="text-gray-700">{sister.occupation}</p>
-                        <p className="text-gray-500 text-sm mt-1">
-                          {sister.maritalStatus}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Family Background */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Father's Family */}
-                <div className="bg-blue-50/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <FaHome className="w-6 h-6 text-blue-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Father&apos;s Family Background
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Origin:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.origin}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Native Place:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.nativePlace}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Type:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.familyType}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Values:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.familyValues}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Status:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.familyStatus}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Business:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.familyBusiness}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family History:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.familyHistory}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Property Details:
-                        </span>{" "}
-                        {profileData.family.fatherFamily.propertyDetails}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-blue-100">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Family Members
-                      </h4>
-                      <div className="space-y-4">
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Grandparents
-                          </p>
-                          <div className="space-y-2">
-                            <p className="text-gray-700">
-                              <span className="font-semibold text-gray-900">
-                                Grandfather:
-                              </span>{" "}
-                              {
-                                profileData.family.fatherFamily.familyMembers
-                                  .grandfather.name
-                              }{" "}
-                              -{" "}
-                              {
-                                profileData.family.fatherFamily.familyMembers
-                                  .grandfather.occupation
-                              }
-                            </p>
-                            <p className="text-gray-700">
-                              <span className="font-semibold text-gray-900">
-                                Grandmother:
-                              </span>{" "}
-                              {
-                                profileData.family.fatherFamily.familyMembers
-                                  .grandmother.name
-                              }{" "}
-                              -{" "}
-                              {
-                                profileData.family.fatherFamily.familyMembers
-                                  .grandmother.occupation
-                              }
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Uncles
-                          </p>
-                          <div className="space-y-2">
-                            {profileData.family.fatherFamily.familyMembers.uncles.map(
-                              (uncle, index) => (
-                                <p key={index} className="text-gray-700">
-                                  {uncle.name} - {uncle.occupation}{" "}
-                                  <span className="text-gray-500">
-                                    ({uncle.maritalStatus})
-                                  </span>
-                                </p>
-                              )
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Aunts
-                          </p>
-                          <div className="space-y-2">
-                            {profileData.family.fatherFamily.familyMembers.aunts.map(
-                              (aunt, index) => (
-                                <p key={index} className="text-gray-700">
-                                  {aunt.name} - {aunt.occupation}{" "}
-                                  <span className="text-gray-500">
-                                    ({aunt.maritalStatus})
-                                  </span>
-                                </p>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mother's Family */}
-                <div className="bg-green-50/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <FaHome className="w-6 h-6 text-green-600" />
-                    <h3 className="text-xl font-semibold text-gray-900">
-                      Mother&apos;s Family Background
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Origin:
-                        </span>{" "}
-                        {profileData.family.motherFamily.origin}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Native Place:
-                        </span>{" "}
-                        {profileData.family.motherFamily.nativePlace}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Type:
-                        </span>{" "}
-                        {profileData.family.motherFamily.familyType}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Values:
-                        </span>{" "}
-                        {profileData.family.motherFamily.familyValues}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Status:
-                        </span>{" "}
-                        {profileData.family.motherFamily.familyStatus}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family Business:
-                        </span>{" "}
-                        {profileData.family.motherFamily.familyBusiness}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Family History:
-                        </span>{" "}
-                        {profileData.family.motherFamily.familyHistory}
-                      </p>
-                      <p className="text-gray-700">
-                        <span className="font-semibold text-gray-900">
-                          Property Details:
-                        </span>{" "}
-                        {profileData.family.motherFamily.propertyDetails}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-green-100">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Family Members
-                      </h4>
-                      <div className="space-y-4">
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Grandparents
-                          </p>
-                          <div className="space-y-2">
-                            <p className="text-gray-700">
-                              <span className="font-semibold text-gray-900">
-                                Grandfather:
-                              </span>{" "}
-                              {
-                                profileData.family.motherFamily.familyMembers
-                                  .grandfather.name
-                              }{" "}
-                              -{" "}
-                              {
-                                profileData.family.motherFamily.familyMembers
-                                  .grandfather.occupation
-                              }
-                            </p>
-                            <p className="text-gray-700">
-                              <span className="font-semibold text-gray-900">
-                                Grandmother:
-                              </span>{" "}
-                              {
-                                profileData.family.motherFamily.familyMembers
-                                  .grandmother.name
-                              }{" "}
-                              -{" "}
-                              {
-                                profileData.family.motherFamily.familyMembers
-                                  .grandmother.occupation
-                              }
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Uncles
-                          </p>
-                          <div className="space-y-2">
-                            {profileData.family.motherFamily.familyMembers.uncles.map(
-                              (uncle, index) => (
-                                <p key={index} className="text-gray-700">
-                                  {uncle.name} - {uncle.occupation}{" "}
-                                  <span className="text-gray-500">
-                                    ({uncle.maritalStatus})
-                                  </span>
-                                </p>
-                              )
-                            )}
-                          </div>
-                        </div>
-
-                        <div className="bg-white/50 rounded-lg p-4 hover:shadow-md transition-all duration-300">
-                          <p className="font-semibold text-gray-900 mb-2">
-                            Aunts
-                          </p>
-                          <div className="space-y-2">
-                            {profileData.family.motherFamily.familyMembers.aunts.map(
-                              (aunt, index) => (
-                                <p key={index} className="text-gray-700">
-                                  {aunt.name} - {aunt.occupation}{" "}
-                                  <span className="text-gray-500">
-                                    ({aunt.maritalStatus})
-                                  </span>
-                                </p>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Interests Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Interests
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {profileData.interests.map((interest, index) => (
-                  <span
-                    key={index}
-                    className="px-4 py-2 bg-pink-50 text-pink-600 rounded-full text-sm font-medium"
-                  >
-                    {interest}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Pledges Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                My Pledges
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {profileData.pledges.map((pledge, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="bg-white/80 p-3 rounded-lg shadow-sm">
-                        {pledge.icon === "FaHeart" && (
-                          <FaHeart className="w-6 h-6 text-pink-500" />
-                        )}
-                        {pledge.icon === "FaSeedling" && (
-                          <FaSeedling className="w-6 h-6 text-green-500" />
-                        )}
-                        {pledge.icon === "FaComments" && (
-                          <FaComments className="w-6 h-6 text-blue-500" />
-                        )}
-                        {pledge.icon === "FaHandshake" && (
-                          <FaHandshake className="w-6 h-6 text-purple-500" />
-                        )}
-                        {pledge.icon === "FaGlobeAmericas" && (
-                          <FaGlobeAmericas className="w-6 h-6 text-indigo-500" />
-                        )}
-                        {pledge.icon === "FaChartLine" && (
-                          <FaChartLine className="w-6 h-6 text-teal-500" />
-                        )}
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                          {pledge.title}
-                        </h3>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          {pledge.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <About about={profileData.about} />
+            <Photos photos={profileData.photos} name={profileData.name} />
+            <Family family={profileData.family} />
+            <Interests interests={profileData.interests} />
+            <Pledges pledges={profileData.pledges} />
           </div>
 
           {/* Sidebar */}
@@ -1302,60 +659,6 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-
-      {/* Full Screen Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center">
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-          >
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-          <div className="relative w-full max-w-4xl mx-4">
-            <div className="overflow-hidden" ref={modalEmblaRef}>
-              <div className="flex">
-                {profileData.photos.map((photo, index) => (
-                  <div key={index} className="flex-[0_0_100%] min-w-0">
-                    <div className="aspect-[4/3] relative">
-                      <Image
-                        src={photo}
-                        alt={`${profileData.name}'s photo ${index + 1}`}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button
-              onClick={modalScrollPrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <FaChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              onClick={modalScrollNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <FaChevronRight className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
