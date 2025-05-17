@@ -14,7 +14,7 @@ export default function Photos({ photos, name }: PhotosProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [modalEmblaRef, modalEmblaApi] = useEmblaCarousel({ loop: true });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  // const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -33,7 +33,7 @@ export default function Photos({ photos, name }: PhotosProps) {
   }, [modalEmblaApi]);
 
   const openModal = (index: number) => {
-    setSelectedPhotoIndex(index);
+    // setSelectedPhotoIndex(index);
     setIsModalOpen(true);
     if (modalEmblaApi) {
       modalEmblaApi.scrollTo(index);
