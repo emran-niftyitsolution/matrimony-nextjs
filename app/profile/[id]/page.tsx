@@ -6,11 +6,13 @@ import Image from "next/image";
 import { useCallback, useState } from "react";
 import {
   FaBriefcase,
+  FaCalendarAlt,
   FaChevronLeft,
   FaChevronRight,
   FaEnvelope,
   FaExpand,
   FaFacebook,
+  FaGlobe,
   FaGraduationCap,
   FaHeart,
   FaHome,
@@ -18,13 +20,17 @@ import {
   FaLanguage,
   FaLinkedin,
   FaMapMarkerAlt,
+  FaPalette,
   FaPhone,
   FaPrayingHands,
+  FaRulerVertical,
   FaStar,
+  FaTint,
   FaUserCircle,
   FaUserFriends,
   FaUsers,
   FaUserTie,
+  FaWeight,
 } from "react-icons/fa";
 
 const profileData = {
@@ -179,6 +185,11 @@ const profileData = {
       },
     },
   },
+  birthYear: 1995,
+  color: "Fair",
+  weight: "55 kg",
+  bloodGroup: "O+",
+  nationality: "American",
 };
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
@@ -750,6 +761,60 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 Basic Information
               </h2>
               <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <FaCalendarAlt className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Birth Year</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.birthYear}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaRulerVertical className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Height</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.height}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaPalette className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Complexion</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.color}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaWeight className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Weight</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.weight}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaTint className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Blood Group</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.bloodGroup}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaGlobe className="w-5 h-5 text-pink-500" />
+                  <div>
+                    <p className="text-sm text-gray-500">Nationality</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.nationality}
+                    </p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-3">
                   <FaBriefcase className="w-5 h-5 text-pink-500" />
                   <div>
