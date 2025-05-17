@@ -190,6 +190,56 @@ const profileData = {
   weight: "55 kg",
   bloodGroup: "O+",
   nationality: "American",
+  educationalQualifications: [
+    {
+      degree: "Masters in Computer Science",
+      institution: "Stanford University",
+      year: "2017-2019",
+      result: "CGPA 3.8/4.0",
+      achievements: ["Dean's List", "Research Fellowship"],
+    },
+    {
+      degree: "Bachelor of Science in Computer Science",
+      institution: "MIT",
+      year: "2013-2017",
+      result: "CGPA 3.9/4.0",
+      achievements: ["Summa Cum Laude", "Department Award"],
+    },
+  ],
+  occupationalInfo: {
+    currentPosition: "Senior Software Engineer",
+    company: "Google",
+    department: "Cloud Platform",
+    joiningYear: 2019,
+    responsibilities: [
+      "Lead developer for cloud infrastructure",
+      "Mentor junior developers",
+      "Architect scalable solutions",
+    ],
+    achievements: [
+      "Employee of the Year 2022",
+      "Best Innovation Award 2021",
+      "5+ successful project launches",
+    ],
+    salary: "150K+ USD",
+    workLocation: "New York Office",
+  },
+  expectedPartner: {
+    ageRange: "25-32",
+    height: "5'4\" - 5'8\"",
+    education: "Minimum Bachelor's Degree",
+    occupation: "Professional/Working",
+    maritalStatus: "Never Married",
+    religion: "Islam",
+    location: "USA/Canada",
+    familyType: "Modern/Nuclear",
+    otherPreferences: [
+      "Should be career-oriented",
+      "Family values are important",
+      "Open to relocation",
+      "Good communication skills",
+    ],
+  },
 };
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
@@ -862,6 +912,183 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                       {profileData.languages.join(", ")}
                     </p>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Educational Qualifications */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Educational Qualifications
+              </h2>
+              <div className="space-y-6">
+                {profileData.educationalQualifications.map((edu, index) => (
+                  <div key={index} className="border-l-4 border-pink-500 pl-4">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {edu.degree}
+                    </h3>
+                    <p className="text-gray-700">{edu.institution}</p>
+                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                      <span>{edu.year}</span>
+                      <span>•</span>
+                      <span>{edu.result}</span>
+                    </div>
+                    {edu.achievements && edu.achievements.length > 0 && (
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-500">Achievements:</p>
+                        <ul className="list-disc list-inside text-sm text-gray-700 mt-1">
+                          {edu.achievements.map((achievement, idx) => (
+                            <li key={idx}>{achievement}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Occupational Information */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Occupational Information
+              </h2>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-sm text-gray-500">Current Position</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.currentPosition}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Company</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.company}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Department</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.department}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Joining Year</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.joiningYear}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Salary</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.salary}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Work Location</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.occupationalInfo.workLocation}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Responsibilities
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {profileData.occupationalInfo.responsibilities.map(
+                      (resp, index) => (
+                        <li key={index}>{resp}</li>
+                      )
+                    )}
+                  </ul>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Achievements
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {profileData.occupationalInfo.achievements.map(
+                      (achievement, index) => (
+                        <li key={index}>{achievement}</li>
+                      )
+                    )}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Expected Life Partner */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Expected Life Partner
+              </h2>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-sm text-gray-500">Age Range</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.ageRange}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Height</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.height}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Education</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.education}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Occupation</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.occupation}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Marital Status</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.maritalStatus}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Religion</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.religion}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Location</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.location}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Family Type</p>
+                    <p className="font-semibold text-gray-900">
+                      {profileData.expectedPartner.familyType}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-gray-100">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    Other Preferences
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                    {profileData.expectedPartner.otherPreferences.map(
+                      (pref, index) => (
+                        <li key={index}>{pref}</li>
+                      )
+                    )}
+                  </ul>
                 </div>
               </div>
             </div>
