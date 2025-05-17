@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
@@ -438,6 +437,53 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
               </p>
             </div>
 
+            {/* Photos Section */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Photos</h2>
+              <div className="relative">
+                <div className="overflow-hidden" ref={emblaRef}>
+                  <div className="flex">
+                    {profileData.photos.map((photo, index) => (
+                      <div
+                        key={index}
+                        className="flex-[0_0_33.33%] min-w-0 pl-4 first:pl-0"
+                      >
+                        <div className="aspect-square relative rounded-xl overflow-hidden group">
+                          <Image
+                            src={photo}
+                            alt={`${profileData.name}'s photo ${index + 1}`}
+                            fill
+                            className="object-cover transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <button
+                              onClick={() => openModal(index)}
+                              className="bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+                            >
+                              <FaExpand className="w-4 h-4" />
+                              <span>View</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  onClick={scrollPrev}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <FaChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={scrollNext}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <FaChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
             {/* Family Information Section */}
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
@@ -851,53 +897,6 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
               </div>
             </div>
 
-            {/* Photos Section */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Photos</h2>
-              <div className="relative">
-                <div className="overflow-hidden" ref={emblaRef}>
-                  <div className="flex">
-                    {profileData.photos.map((photo, index) => (
-                      <div
-                        key={index}
-                        className="flex-[0_0_33.33%] min-w-0 pl-4 first:pl-0"
-                      >
-                        <div className="aspect-square relative rounded-xl overflow-hidden group">
-                          <Image
-                            src={photo}
-                            alt={`${profileData.name}'s photo ${index + 1}`}
-                            fill
-                            className="object-cover transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <button
-                              onClick={() => openModal(index)}
-                              className="bg-white/90 hover:bg-white text-gray-800 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-                            >
-                              <FaExpand className="w-4 h-4" />
-                              <span>View</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <button
-                  onClick={scrollPrev}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <FaChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={scrollNext}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <FaChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
             {/* Interests Section */}
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
@@ -1299,13 +1298,6 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-4">
-              <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                Send Message
-              </Button>
             </div>
           </div>
         </div>
