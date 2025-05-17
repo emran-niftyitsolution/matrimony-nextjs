@@ -7,13 +7,17 @@ import { useCallback, useState } from "react";
 import {
   FaBriefcase,
   FaCalendarAlt,
+  FaChartLine,
   FaChevronLeft,
   FaChevronRight,
+  FaComments,
   FaEnvelope,
   FaExpand,
   FaFacebook,
   FaGlobe,
+  FaGlobeAmericas,
   FaGraduationCap,
+  FaHandshake,
   FaHeart,
   FaHome,
   FaInstagram,
@@ -26,6 +30,7 @@ import {
   FaRegHeart,
   FaRegStar,
   FaRulerVertical,
+  FaSeedling,
   FaStar,
   FaTint,
   FaUserCircle,
@@ -242,6 +247,44 @@ const profileData = {
       "Good communication skills",
     ],
   },
+  pledges: [
+    {
+      title: "Commitment to Family",
+      description:
+        "I pledge to prioritize family values and create a loving, supportive environment for our future family.",
+      icon: "FaHeart",
+    },
+    {
+      title: "Mutual Growth",
+      description:
+        "I commit to supporting my partner's personal and professional growth while pursuing my own development.",
+      icon: "FaSeedling",
+    },
+    {
+      title: "Open Communication",
+      description:
+        "I promise to maintain honest and open communication, addressing concerns with respect and understanding.",
+      icon: "FaComments",
+    },
+    {
+      title: "Shared Responsibilities",
+      description:
+        "I vow to share household responsibilities and decision-making equally in our partnership.",
+      icon: "FaHandshake",
+    },
+    {
+      title: "Cultural Respect",
+      description:
+        "I commit to respecting and celebrating our cultural differences and traditions.",
+      icon: "FaGlobeAmericas",
+    },
+    {
+      title: "Financial Transparency",
+      description:
+        "I pledge to maintain transparency in financial matters and work together on financial goals.",
+      icon: "FaChartLine",
+    },
+  ],
 };
 
 export default function ProfilePage({ params }: { params: { id: string } }) {
@@ -381,7 +424,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
       )}
 
       {/* Profile Content */}
-      <div className="container mx-auto px-4 -mt-10 relative z-20">
+      <div className="container mx-auto px-4 pb-20 -mt-10 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
@@ -868,6 +911,52 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                   >
                     {interest}
                   </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Pledges Section */}
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                My Pledges
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {profileData.pledges.map((pledge, index) => (
+                  <div
+                    key={index}
+                    className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white/80 p-3 rounded-lg shadow-sm">
+                        {pledge.icon === "FaHeart" && (
+                          <FaHeart className="w-6 h-6 text-pink-500" />
+                        )}
+                        {pledge.icon === "FaSeedling" && (
+                          <FaSeedling className="w-6 h-6 text-green-500" />
+                        )}
+                        {pledge.icon === "FaComments" && (
+                          <FaComments className="w-6 h-6 text-blue-500" />
+                        )}
+                        {pledge.icon === "FaHandshake" && (
+                          <FaHandshake className="w-6 h-6 text-purple-500" />
+                        )}
+                        {pledge.icon === "FaGlobeAmericas" && (
+                          <FaGlobeAmericas className="w-6 h-6 text-indigo-500" />
+                        )}
+                        {pledge.icon === "FaChartLine" && (
+                          <FaChartLine className="w-6 h-6 text-teal-500" />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                          {pledge.title}
+                        </h3>
+                        <p className="text-gray-700 text-sm leading-relaxed">
+                          {pledge.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
