@@ -63,7 +63,7 @@ export function Header() {
                 className={`relative text-[15px] font-medium transition-all duration-300 ${
                   isScrolled
                     ? "text-gray-700 hover:text-pink-600"
-                    : "text-gray-900 hover:text-pink-600"
+                    : "text-white hover:text-pink-200"
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-pink-600 after:transition-all after:duration-300 hover:after:w-full`}
               >
                 Home
@@ -73,7 +73,7 @@ export function Header() {
                 className={`relative text-[15px] font-medium transition-all duration-300 ${
                   isScrolled
                     ? "text-gray-700 hover:text-pink-600"
-                    : "text-gray-900 hover:text-pink-600"
+                    : "text-white hover:text-pink-200"
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-pink-600 after:transition-all after:duration-300 hover:after:w-full`}
               >
                 Search
@@ -83,7 +83,7 @@ export function Header() {
                 className={`relative text-[15px] font-medium transition-all duration-300 ${
                   isScrolled
                     ? "text-gray-700 hover:text-pink-600"
-                    : "text-gray-900 hover:text-pink-600"
+                    : "text-white hover:text-pink-200"
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-pink-600 after:transition-all after:duration-300 hover:after:w-full`}
               >
                 Success Stories
@@ -93,7 +93,7 @@ export function Header() {
                 className={`relative text-[15px] font-medium transition-all duration-300 ${
                   isScrolled
                     ? "text-gray-700 hover:text-pink-600"
-                    : "text-gray-900 hover:text-pink-600"
+                    : "text-white hover:text-pink-200"
                 } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-pink-600 after:transition-all after:duration-300 hover:after:w-full`}
               >
                 About Us
@@ -105,20 +105,32 @@ export function Header() {
               <Button
                 variant="outline"
                 size="sm"
-                className="hidden sm:inline-flex border-pink-200 bg-pink-50/50 hover:bg-pink-100 text-pink-600 hover:text-pink-700"
+                className={`hidden sm:inline-flex ${
+                  isScrolled
+                    ? "border-pink-200 bg-pink-50/50 hover:bg-pink-100 text-pink-600 hover:text-pink-700"
+                    : "border-white/20 bg-white/10 hover:bg-white/20 text-white hover:text-white"
+                }`}
               >
                 Sign In
               </Button>
               <Button
                 size="sm"
-                className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white"
+                className={`${
+                  isScrolled
+                    ? "bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white"
+                    : "bg-white text-pink-600 hover:bg-pink-50"
+                }`}
               >
                 Register
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="md:hidden text-pink-500 hover:text-pink-600"
+                className={`md:hidden ${
+                  isScrolled
+                    ? "text-pink-500 hover:text-pink-600"
+                    : "text-white hover:text-pink-200"
+                }`}
                 onClick={() => setIsMenuOpen(true)}
               >
                 <FaBars className="w-5 h-5" />
