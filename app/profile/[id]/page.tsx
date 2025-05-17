@@ -9,25 +9,14 @@ import {
   Photos,
   Pledges,
 } from "@/components/sections/profile/main";
-import { useState } from "react";
 import {
-  FaBriefcase,
-  FaCalendarAlt,
-  FaEnvelope,
-  FaFacebook,
-  FaGlobe,
-  FaGraduationCap,
-  FaInstagram,
-  FaLanguage,
-  FaLinkedin,
-  FaPalette,
-  FaPhone,
-  FaPrayingHands,
-  FaRulerVertical,
-  FaTint,
-  FaUserFriends,
-  FaWeight,
-} from "react-icons/fa";
+  BasicInfo,
+  Contact,
+  Education,
+  ExpectedPartner,
+  Occupation,
+} from "@/components/sections/profile/page";
+import { useState } from "react";
 
 const profileData = {
   id: "1",
@@ -320,342 +309,29 @@ export default function ProfilePage() {
 
           {/* Sidebar */}
           <div className="space-y-8">
-            {/* Basic Info */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Basic Information
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <FaCalendarAlt className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Birth Year</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.birthYear}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaRulerVertical className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Height</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.height}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaPalette className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Complexion</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.color}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaWeight className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Weight</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.weight}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaTint className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Blood Group</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.bloodGroup}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaGlobe className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Nationality</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.nationality}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaBriefcase className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Occupation</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupation} at {profileData.company}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaGraduationCap className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Education</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.education}
-                    </p>
-                    <p className="text-sm text-gray-700">
-                      {profileData.university}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaPrayingHands className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Religion</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.religion}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaUserFriends className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Marital Status</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.maritalStatus}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaLanguage className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Languages</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.languages.join(", ")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BasicInfo
+              birthYear={profileData.birthYear}
+              height={profileData.height}
+              color={profileData.color}
+              weight={profileData.weight}
+              bloodGroup={profileData.bloodGroup}
+              nationality={profileData.nationality}
+              occupation={profileData.occupation}
+              company={profileData.company}
+              education={profileData.education}
+              university={profileData.university}
+              religion={profileData.religion}
+              maritalStatus={profileData.maritalStatus}
+              languages={profileData.languages}
+            />
 
-            {/* Educational Qualifications */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Educational Qualifications
-              </h2>
-              <div className="space-y-6">
-                {profileData.educationalQualifications.map((edu, index) => (
-                  <div key={index} className="border-l-4 border-pink-500 pl-4">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {edu.degree}
-                    </h3>
-                    <p className="text-gray-700">{edu.institution}</p>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                      <span>{edu.year}</span>
-                      <span>•</span>
-                      <span>{edu.result}</span>
-                    </div>
-                    {edu.achievements && edu.achievements.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-500">Achievements:</p>
-                        <ul className="list-disc list-inside text-sm text-gray-700 mt-1">
-                          {edu.achievements.map((achievement, idx) => (
-                            <li key={idx}>{achievement}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Education qualifications={profileData.educationalQualifications} />
 
-            {/* Occupational Information */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Occupational Information
-              </h2>
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Current Position</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.currentPosition}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Company</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.company}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Department</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.department}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Joining Year</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.joiningYear}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Salary</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.salary}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Work Location</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.occupationalInfo.workLocation}
-                    </p>
-                  </div>
-                </div>
+            <Occupation info={profileData.occupationalInfo} />
 
-                <div className="pt-4 border-t border-gray-100">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Responsibilities
-                  </h3>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {profileData.occupationalInfo.responsibilities.map(
-                      (resp, index) => (
-                        <li key={index}>{resp}</li>
-                      )
-                    )}
-                  </ul>
-                </div>
+            <ExpectedPartner partner={profileData.expectedPartner} />
 
-                <div className="pt-4 border-t border-gray-100">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Achievements
-                  </h3>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {profileData.occupationalInfo.achievements.map(
-                      (achievement, index) => (
-                        <li key={index}>{achievement}</li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Expected Life Partner */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Expected Life Partner
-              </h2>
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <p className="text-sm text-gray-500">Age Range</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.ageRange}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Height</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.height}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Education</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.education}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Occupation</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.occupation}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Marital Status</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.maritalStatus}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Religion</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.religion}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Location</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.location}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Family Type</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.expectedPartner.familyType}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-gray-100">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Other Preferences
-                  </h3>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    {profileData.expectedPartner.otherPreferences.map(
-                      (pref, index) => (
-                        <li key={index}>{pref}</li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Information */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Contact Information
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <FaPhone className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Phone</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.contact.phone}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaEnvelope className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <p className="text-sm text-gray-500">Email</p>
-                    <p className="font-semibold text-gray-900">
-                      {profileData.contact.email}
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-gray-100">
-                  <div className="flex items-center gap-4">
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-pink-500 transition-colors"
-                    >
-                      <FaFacebook className="w-6 h-6" />
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-pink-500 transition-colors"
-                    >
-                      <FaInstagram className="w-6 h-6" />
-                    </a>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-pink-500 transition-colors"
-                    >
-                      <FaLinkedin className="w-6 h-6" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Contact contact={profileData.contact} />
           </div>
         </div>
       </div>
