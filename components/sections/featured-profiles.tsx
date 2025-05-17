@@ -70,7 +70,7 @@ export function FeaturedProfiles() {
               key={i}
               className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-pink-50"
             >
-              <div className="aspect-[3/4] relative">
+              <div className="aspect-square relative">
                 <Image
                   src={profile.image}
                   alt={`${profile.name}'s profile`}
