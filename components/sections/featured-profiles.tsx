@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import {
   FaBriefcase,
   FaGraduationCap,
@@ -12,6 +13,7 @@ import {
 
 const profiles = [
   {
+    id: "1",
     name: "Sarah",
     age: 28,
     location: "New York",
@@ -23,6 +25,7 @@ const profiles = [
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
   },
   {
+    id: "2",
     name: "Michael",
     age: 30,
     location: "San Francisco",
@@ -34,6 +37,7 @@ const profiles = [
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
   },
   {
+    id: "3",
     name: "Emma",
     age: 26,
     location: "London",
@@ -45,6 +49,7 @@ const profiles = [
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
   },
   {
+    id: "4",
     name: "David",
     age: 32,
     location: "Toronto",
@@ -65,9 +70,9 @@ export function FeaturedProfiles() {
           Featured Profiles
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {profiles.map((profile, i) => (
+          {profiles.map((profile) => (
             <div
-              key={i}
+              key={profile.id}
               className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-pink-50"
             >
               <div className="aspect-square relative">
@@ -112,9 +117,11 @@ export function FeaturedProfiles() {
                 </div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                  View Profile
-                </Button>
+                <Link href={`/profile/${profile.id}`} className="w-full">
+                  <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    View Profile
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
