@@ -1,9 +1,12 @@
 import {
+  FaAddressBook,
   FaEnvelope,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
   FaPhone,
+  FaUser,
+  FaUserFriends,
 } from "react-icons/fa";
 
 interface SocialMedia {
@@ -13,6 +16,8 @@ interface SocialMedia {
 }
 
 interface ContactInfo {
+  name: string;
+  relation: string;
   phone: string;
   email: string;
   social: SocialMedia;
@@ -29,6 +34,20 @@ export default function Contact({ contact }: ContactProps) {
         Contact Information
       </h2>
       <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <FaUser className="w-5 h-5 text-pink-500" />
+          <div>
+            <p className="text-sm text-gray-500">Name</p>
+            <p className="font-semibold text-gray-900">{contact.name}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <FaUserFriends className="w-5 h-5 text-pink-500" />
+          <div>
+            <p className="text-sm text-gray-500">Relation</p>
+            <p className="font-semibold text-gray-900">{contact.relation}</p>
+          </div>
+        </div>
         <div className="flex items-center gap-3">
           <FaPhone className="w-5 h-5 text-pink-500" />
           <div>
@@ -64,6 +83,17 @@ export default function Contact({ contact }: ContactProps) {
               <FaLinkedin className="w-6 h-6" />
             </a>
           </div>
+        </div>
+        <div className="pt-4 border-t border-gray-100">
+          <button
+            onClick={() => {
+              // Handle view contacts click
+            }}
+            className="w-full flex items-center justify-center gap-2 bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition-colors duration-300"
+          >
+            <FaAddressBook className="w-5 h-5" />
+            <span>View All Contacts</span>
+          </button>
         </div>
       </div>
     </div>

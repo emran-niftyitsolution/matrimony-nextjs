@@ -52,6 +52,8 @@ const profileData = {
   rating: 4.8,
   likes: 245,
   contact: {
+    name: "Sarah Johnson",
+    relation: "Self",
     phone: "+1 (555) 123-4567",
     email: "sarah.johnson@example.com",
     social: {
