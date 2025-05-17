@@ -23,6 +23,8 @@ import {
   FaPalette,
   FaPhone,
   FaPrayingHands,
+  FaRegHeart,
+  FaRegStar,
   FaRulerVertical,
   FaStar,
   FaTint,
@@ -247,6 +249,9 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
   const [modalEmblaRef, modalEmblaApi] = useEmblaCarousel({ loop: true });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -278,7 +283,7 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
       <div className="relative h-[60vh] bg-gradient-to-r from-pink-500 to-purple-500">
         <div className="absolute inset-0 bg-black/30" />
         <div className="container mx-auto px-4 h-full flex items-end pb-20 relative z-10">
-          <div className="flex items-end gap-8">
+          <div className="flex items-end gap-8 w-full">
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl">
               <Image
                 src={profileData.photos[0]}
@@ -287,10 +292,32 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
                 className="object-cover"
               />
             </div>
-            <div className="text-white mb-4">
-              <h1 className="text-4xl font-bold mb-2">
-                {profileData.name}, {profileData.age}
-              </h1>
+            <div className="text-white mb-4 flex-grow">
+              <div className="flex items-center justify-between">
+                <h1 className="text-4xl font-bold mb-2">
+                  {profileData.name}, {profileData.age}
+                </h1>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setIsRatingModalOpen(true)}
+                    className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-all duration-300"
+                  >
+                    <FaStar className="w-5 h-5 text-yellow-400" />
+                    <span>Rate</span>
+                  </button>
+                  <button
+                    onClick={() => setIsLiked(!isLiked)}
+                    className="flex items-center gap-2 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition-all duration-300"
+                  >
+                    {isLiked ? (
+                      <FaHeart className="w-5 h-5 text-red-500" />
+                    ) : (
+                      <FaRegHeart className="w-5 h-5" />
+                    )}
+                    <span>{isLiked ? "Liked" : "Like"}</span>
+                  </button>
+                </div>
+              </div>
               <div className="flex items-center gap-4 text-lg">
                 <div className="flex items-center gap-2">
                   <FaMapMarkerAlt className="w-5 h-5" />
@@ -309,6 +336,49 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
+
+      {/* Rating Modal */}
+      {isRatingModalOpen && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              Rate Profile
+            </h3>
+            <div className="flex justify-center gap-2 mb-6">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setUserRating(star)}
+                  className="text-3xl transition-transform hover:scale-110"
+                >
+                  {star <= userRating ? (
+                    <FaStar className="text-yellow-400" />
+                  ) : (
+                    <FaRegStar className="text-gray-300" />
+                  )}
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setIsRatingModalOpen(false)}
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  // Handle rating submission
+                  setIsRatingModalOpen(false);
+                }}
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+              >
+                Submit Rating
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Profile Content */}
       <div className="container mx-auto px-4 -mt-10 relative z-20">
@@ -1146,12 +1216,6 @@ export default function ProfilePage({ params }: { params: { id: string } }) {
             <div className="space-y-4">
               <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white font-medium py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                 Send Message
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full border-pink-200 text-pink-600 hover:bg-pink-50 font-medium py-6 text-lg rounded-xl"
-              >
-                Save Profile
               </Button>
             </div>
           </div>
